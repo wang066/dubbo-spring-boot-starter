@@ -1,19 +1,18 @@
 package com.alibaba.dubbo.spring.boot;
 
-import java.util.concurrent.CountDownLatch;
-
+import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
+import com.alibaba.dubbo.spring.boot.server.DubboServer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
-import com.alibaba.dubbo.spring.boot.server.DubboServer;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Dubbo configuration
- *
+ * 启动了一个非守护线程，用来hold住dubbo服务。类似我常做的System.in.read。
  * @author xionghui
  * @version 2.0.0
  * @since 1.0.0

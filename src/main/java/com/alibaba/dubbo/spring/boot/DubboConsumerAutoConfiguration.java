@@ -1,9 +1,10 @@
 package com.alibaba.dubbo.spring.boot;
 
-import java.lang.reflect.Field;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
+import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
@@ -18,11 +19,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.config.spring.ReferenceBean;
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
-import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
+import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * DubboConsumerAutoConfiguration
@@ -30,6 +29,8 @@ import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
  * @author xionghui
  * @version 2.0.0
  * @since 1.0.0
+ * DubboConsumerAutoConfiguration是消费端的关键类，核心方法是beanPostProcessor()，该方法会创建一个Spring 的 BeanPostProcessor，并实现postProcessBeforeInitialization，在bean初始化完成后实现，判断bean是否是Reference，如果是Reference，则为其生成代理类。
+ *
  */
 @Configuration
 @ConditionalOnClass(Service.class)

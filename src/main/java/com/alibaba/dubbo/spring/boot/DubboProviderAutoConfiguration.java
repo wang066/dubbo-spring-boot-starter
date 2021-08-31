@@ -1,9 +1,8 @@
 package com.alibaba.dubbo.spring.boot;
 
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
+import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.dubbo.config.spring.ServiceBean;
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -13,12 +12,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.config.spring.ServiceBean;
-import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
+import javax.annotation.PostConstruct;
+import java.util.Map;
 
 /**
  * DubboProviderAutoConfiguration
+ * DubboProviderAutoConfiguration这个类用来暴漏dubbo服务，它继承了DubboCommonAutoConfiguration，获得一些解析能力。此类最核心的就是initProviderBean的最后一行代码 serviceConfig.export()。它将从spring容器中获取所有实现Service接口的bean，经过解析，最后通过serviceConfig来暴漏服务。
  *
  * @author xionghui
  * @author 韩旺坤
